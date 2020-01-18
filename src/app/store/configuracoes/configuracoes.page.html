@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="bold">Configurar minha loja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-card>
+      <ion-avatar class="logotipo">
+        <img id="logo"
+          [src]="logomarca || 'https://static.vecteezy.com/system/resources/previews/000/357/423/non_2x/shop-vector-icon.jpg'">
+      </ion-avatar>
+      <ion-button fill="outline" class="btn-45" (click)="logo()" color="primary" expand="block">Adicionar Logomarca
+      </ion-button>
+    </ion-card>
+    <ion-grid>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
+        <ion-row class="margin-top-15">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Nome da loja</ion-label>
+              <ion-icon class="margin-top-23px" name="home" slot="end"></ion-icon>
+              <ion-input type="text" formControlName="nome_loja"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">E-mail da loja</ion-label>
+              <ion-icon class="margin-top-23px" name="mail" slot="end"></ion-icon>
+              <ion-input type="email" formControlName="email_loja"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Contato principal</ion-label>
+              <ion-icon class="margin-top-23px" name="call" slot="end"></ion-icon>
+              <ion-input type="tel" formControlName="contato_principal" [brmasker]="{phone: true}"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Contato secundário</ion-label>
+              <ion-icon class="margin-top-23px" name="call" slot="end"></ion-icon>
+              <ion-input type="tel" formControlName="contato_secundario" [brmasker]="{phone: true}"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">WhatsApp</ion-label>
+              <ion-icon class="margin-top-23px" name="logo-whatsapp" slot="end"></ion-icon>
+              <ion-input (ionFocus)="alert()" type="tel" formControlName="whatsapp_loja" [brmasker]="{phone: true}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      </form>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-col>
+        <ion-row>
+          <ion-button class="btn-45 width-100 bold" color="primary" expand="block" (click)="submit()" [disabled]="signupForm.invalid">Próximo
+          </ion-button>
+        </ion-row>
+      </ion-col>
+    </ion-grid>
+  </div>
+</ion-content>

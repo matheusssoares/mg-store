@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">Configurar endereço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <lottie-animation-view [options]="lottieConfig"></lottie-animation-view>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="mostrar_cep">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Digite seu CEP</ion-label>
+          <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+          <ion-input (ionChange)="getCep($event.target.value)" [specialCharacters]="[ '-' ]" mask="00000-000"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!mostrar_cep">
+      <ion-col size="6" sm-size>
+        <ion-item>
+          <ion-label position="floating">CEP</ion-label>
+          <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+          <ion-input type="number" disabled [(ngModel)]="end.cep"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" sm-size>
+        <ion-item>
+          <ion-label position="floating">Estado</ion-label>
+          <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+          <ion-input type="text" [(ngModel)]="end.estado"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="!mostrar_cep">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Cidade</ion-label>
+            <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+            <ion-input type="text" [(ngModel)]="end.cidade"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Bairro</ion-label>
+            <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+            <ion-input type="text" [(ngModel)]="end.bairro"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Endereço</ion-label>
+            <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+            <ion-input type="text" [(ngModel)]="end.rua"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="7" size-sm>
+          <ion-item>
+            <ion-label position="floating">Complemento</ion-label>
+            <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+            <ion-input type="text" [(ngModel)]="end.comp"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5" size-sm>
+          <ion-item>
+            <ion-label position="floating">Núm</ion-label>
+            <ion-icon class="margin-top-23px" name="pin" slot="end"></ion-icon>
+            <ion-input type="text" [(ngModel)]="end.num"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row *ngIf="!mostrar_cep">
+      <ion-col>
+        <ion-item>
+          <ion-button class="btn-45 width-100 bold" (click)="Continuar(end)" color="primary" expand="block">
+            Cadastrar endereço
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

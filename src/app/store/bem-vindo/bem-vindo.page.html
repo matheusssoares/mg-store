@@ -1,0 +1,40 @@
+<!-- 
+<ion-content class="ion-padding">
+  <ion-card>
+    <lottie-animation-view [options]="lottieConfig"></lottie-animation-view>
+  </ion-card>
+
+  <div class="title">
+    <h1 class="ion-text-center ion-text-capitalize">Obrigado, {{ nome }}!</h1>
+    <p class="ion-text-justify">
+      Seus dados de acesso foram registrados com sucesso!
+    </p>
+  </div>
+  <ion-button class="btn-45 width-100" (click)="Continuar()" color="primary" expanded="block">
+    Configurar minha loja
+  </ion-button>
+</ion-content> -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="bold">Seja bem-vindo(a)</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <!-- <p class="text-img-center">
+      <img style="height: 270px;" src="../../../assets/img/bem-vindo.png" alt="">
+    </p> -->
+
+    <lottie-animation-view [options]="lottieConfig"></lottie-animation-view>
+
+    <div class="title ion-padding">
+      <h1 class="ion-text-center ion-text-capitalize">Obrigado, {{ nome }}!</h1>
+      <p style="color: #666;" class="ion-text-justify">
+        Seus dados de acesso foram registrados com sucesso!
+      </p>
+    </div>
+    <div class="ion-padding">
+      <ion-button class="btn-45 width-100" (click)="Continuar()" color="primary" expanded="block">
+        Configurar minha loja
+      </ion-button>
+    </div>
+</ion-content>

@@ -1,0 +1,42 @@
+.border-login {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: rgb(145, 62, 147);
+  background: linear-gradient(
+    90deg,
+    rgba(145, 62, 147, 1) 0%,
+    rgba(186, 85, 187, 1) 0%,
+    rgba(232, 49, 236, 1) 46%,
+    rgba(228, 0, 247, 1) 100%
+  );
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding-bottom: 20px;
+}
+
+.menu-btn {
+  font-size: 50px;
+  color: white;
+}
+
+ion-item {
+  --ion-background-color: transparent;
+}
+.avt {
+    width: 70px;
+    height: 70px;
+}
+
+ion-label h3.font-25 {
+    color: #FFF;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+ion-label p {
+    color: #FFF;
+}
+.card-border-round {
+    border-radius: 20px;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "mg-store",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

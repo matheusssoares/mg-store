@@ -1,0 +1,67 @@
+<ion-content fullscreen>
+  <div class="login">
+    <p class="ion-text-center">
+      <img class="im-cadastro" src="../../assets/img/create_account.png" alt="imagem de cadastro">
+    </p>
+
+    <h1 class="ion-text-center"><b>Criar conta</b></h1>
+    <p style="color: #666; font-size: 15px;" class="ion-text-center">Cadastre-se e deixe que nós te auxiliamos a
+      gerenciar seu estabelecimento</p>
+  </div>
+
+  <div class="ion-padding no-margin-top-70">
+    <ion-grid>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
+        <ion-row class="margin-top-15">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Nome completo</ion-label>
+              <ion-icon class="margin-top-23px" name="person" slot="end"></ion-icon>
+              <ion-input type="text" formControlName="nome"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Nome da sua loja</ion-label>
+              <ion-icon class="margin-top-23px" name="appstore" slot="end"></ion-icon>
+              <ion-input type="text" formControlName="nome_loja"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Digite um e-mail</ion-label>
+              <ion-icon class="margin-top-23px" name="mail" slot="end"></ion-icon>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Digite uma senha</ion-label>
+              <ion-icon class="margin-top-23px" name="lock" slot="end"></ion-icon>
+              <ion-input type="password" formControlName="senha"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="margin-top-15">
+          <ion-col>
+            <ion-button class="btn-45 bg-primary-outline" type="submit" [disabled]="signupForm.invalid" color="primary"
+              expand="block">Cadastrar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="no-margin-top-15">
+          <ion-col>
+            <ion-button class="btn-45 bg-primary-outline bold" (click)="voltar()" color="light" expand="block">Voltar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

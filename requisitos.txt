@@ -1,0 +1,35 @@
+store/key {
+    key,
+    nome da loja,
+    email da loja,
+    contato principal,
+    contato secundario,
+    whatsapp,
+    caminho da imagem,
+    nome do gerente,
+    id-gerente,
+    data cadastro,
+    ativo,
+    endereço,
+    cep,
+    bairro,
+    cidade,
+    estado,
+    complemento,
+    numero,
+    markup,
+}
+
+CADASTROS
+    UNIDADES DE MEDIDA --
+    CATEGORIAS --
+    FORNECEDORES
+    VARIAÇÃO --
+    DEPARTAMENTOS --
+    PROMOÇÕES
+    PRODUTOS
+    CARGOS ---
+    FUNCIONÁRIOS--
+    CLIENTES--
+    FORMAS DE PAGAMENTO ---
+    COMBOS
