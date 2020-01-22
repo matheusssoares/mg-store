@@ -13,11 +13,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'adm/dashboard',
-    redirectTo: 'store',
-    pathMatch: 'full'
-  },
-  {
     path: 'cadastre-se',
     loadChildren: () => import('./cadastre-se/cadastre-se.module').then( m => m.CadastreSePageModule)
   },
@@ -42,7 +37,10 @@ const routes: Routes = [
     canActivate: [AuthService],
     loadChildren: () => import('./store/app/app.module').then( m => m.AppPageModule)
   },
-  
+  {
+    path: 'clientes',
+    loadChildren: () => import('./store/clientes/clientes.module').then( m => m.ClientesPageModule)
+  }
 ];
 
 @NgModule({

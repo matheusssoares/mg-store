@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { CommonModule, registerLocaleData  } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt, 'pt-BR');
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -15,6 +17,9 @@ import { AppPage } from './app.page';
     IonicModule,
     AppPageRoutingModule
   ],
-  declarations: [AppPage]
+  declarations: [AppPage],
+  providers:[
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
+  ]
 })
 export class AppPageModule {}

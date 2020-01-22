@@ -94,7 +94,7 @@ export class AuthService {
       })
     }).catch((err) => {
       console.log(err);
-      
+
       this.toastCtrl.create({
         message: 'Erro inesperado :(',
         duration: 3000,
@@ -148,7 +148,8 @@ export class AuthService {
       }).then(() => {
         form.status = true;
         form.gerente = true;
-        this.db.collection('usuarios').doc(data.user.uid).set(form).then(() => {
+        form.user_key = data.user.uid;
+        this.db.collection('usuarios').doc(form.user_key).set(form).then(() => {
           this.loadCtrl.dismiss();
           this.toastCtrl.create({
             message: 'Conta criada com sucesso!',
@@ -205,7 +206,7 @@ export class AuthService {
           break;
       }
     })
-    
+
   }
 
   getUserByUid() {
@@ -216,12 +217,12 @@ export class AuthService {
     return this.db.collection('lojas').doc(key);
   }
 
-  logout(){
+  logout() {
     this.af.auth.signOut();
     this.navCtrl.navigateRoot(['']);
   }
 
-  login(form){
+  login(form) {
     this.af.auth.signInWithEmailAndPassword(form.email, form.senha).then((data) => {
       this.loadCtrl.dismiss();
       this.toastCtrl.create({
@@ -234,7 +235,7 @@ export class AuthService {
     }).catch((error) => {
       console.log(error);
       this.loadCtrl.dismiss();
-      switch(error.code) {
+      switch (error.code) {
         case 'auth/invalid-email':
           this.alertCtrl.create({
             header: 'Aviso!',
@@ -283,210 +284,566 @@ export class AuthService {
     })
   }
 
-  gerar_medidas(){
-    var medidas = [
-      
-      {
-        code: 'BALDE',
-        desc: 'BALDE'
-      },      
-      {
-        code: 'BANDEJ',
-        desc: 'BANDEJA'
-      },
-      {
-        code: 'BARRA',
-        desc: 'BARRA'
-      },
-      {
-        code: 'BLOCO',
-        desc: 'BLOCO'
-      },
-      {
-        code: 'CENTO',
-        desc: 'CENTO'
-      },
-      {
-        code: 'CJ',
-        desc: 'CONJUNTO'
-      },
-      {
-        code: 'CM',
-        desc: 'CENTÍMETRO'
-      },
-      {
-        code: 'CM2',
-        desc: 'CENTÍMETRO QUADRADO'
-      },
-      {
-        code: 'CX',
-        desc: 'CAIXA'
-      },
-      {
-        code: 'CX2',
-        desc: 'CAIXA COM 2 UNIDADES'
-      },
-      {
-        code: 'CX3',
-        desc: 'CAIXA COM 3 UNIDADES'
-      },
-      {
-        code: 'CX5',
-        desc: 'CAIXA COM 5 UNIDADES'
-      },
-      {
-        code: 'CX10',
-        desc: 'CAIXA COM 10 UNIDADES'
-      },
-      {
-        code: 'CX15',
-        desc: 'CAIXA COM 15 UNIDADES'
-      },
-      {
-        code: 'CX20',
-        desc: 'CAIXA COM 20 UNIDADES'
-      },
-      {
-        code: 'CX25',
-        desc: 'CAIXA COM 25 UNIDADES'
-      },
-      {
-        code: 'CX50',
-        desc: 'CAIXA COM 50 UNIDADES'
-      },
-      {
-        code: 'CX100',
-        desc: 'CAIXA COM 100 UNIDADES'
-      },
-      {
-        code: 'DUZIA',
-        desc: 'DUZIA'
-      },
-      {
-        code: 'EMBAL',
-        desc: 'EMBALAGEM'
-      },
-      {
-        code: 'FARDO',
-        desc: 'FARDO'
-      },
-      {
-        code: 'FOLHA',
-        desc: 'FOLHA'
-      },
-      {
-        code: 'FRASCO',
-        desc: 'FRASCO'
-      },
-      {
-        code: 'GALAO',
-        desc: 'GALÃO'
-      },
-      {
-        code: 'GF',
-        desc: 'GARRAFA'
-      },
-      {
-        code: 'GRAMAS',
-        desc: 'GRAMAS'
-      },
-      {
-        code: 'JOGO',
-        desc: 'JOGO'
-      },
-      {
-        code: 'KG',
-        desc: 'QUILOGRAMA'
-      },
-      {
-        code: 'KIT',
-        desc: 'KIT'
-      },
-      {
-        code: 'LATA',
-        desc: 'LATA'
-      },
-      {
-        code: 'LITRO',
-        desc: 'LITRO'
-      },
-      {
-        code: 'M',
-        desc: 'METRO'
-      },
-      {
-        code: 'M2',
-        desc: 'METRO QUADRADO'
-      },
-      {
-        code: 'M3',
-        desc: 'METRO CÚBICO'
-      },
-      {
-        code: 'MILHEI',
-        desc: 'MILHEIRO'
-      },
-      {
-        code: 'ML',
-        desc: 'MILILITRO'
-      },
-      {
-        code: 'PACOTE',
-        desc: 'PACOTE'
-      },
-      {
-        code: 'PC',
-        desc: 'PEÇA'
-      },
-      {
-        code: 'K',
-        desc: 'QUILATE'
-      },
-      {
-        code: 'RESMA',
-        desc: 'RESMA'
-      },
-      {
-        code: 'ROLO',
-        desc: 'ROLO'
-      },
-      {
-        code: 'SACO',
-        desc: 'SACO'
-      },
-      {
-        code: 'SACOLA',
-        desc: 'SACOLA'
-      },
-      {
-        code: 'TON',
-        desc: 'TONELADA'
-      },
-      {
-        code: 'TUBO',
-        desc: 'TUBO'
-      },
-      {
-        code: 'UNID',
-        desc: 'UNIDADE'
-      },
-      {
-        code: 'VASIL',
-        desc: 'VASILHAME'
-      },
-      {
-        code: 'VIDRO',
-        desc: 'VIDRO'
-      },
+  /*   gerar_medidas() {
+      var medidas = [
+  
+        {
+          code: 'BALDE',
+          desc: 'BALDE',
+          key_loja: 'geral'
+        },
+        {
+          code: 'BANDEJ',
+          desc: 'BANDEJA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'BARRA',
+          desc: 'BARRA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'BLOCO',
+          desc: 'BLOCO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CENTO',
+          desc: 'CENTO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CJ',
+          desc: 'CONJUNTO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CM',
+          desc: 'CENTÍMETRO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CM2',
+          desc: 'CENTÍMETRO QUADRADO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX',
+          desc: 'CAIXA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX2',
+          desc: 'CAIXA COM 2 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX3',
+          desc: 'CAIXA COM 3 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX5',
+          desc: 'CAIXA COM 5 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX10',
+          desc: 'CAIXA COM 10 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX15',
+          desc: 'CAIXA COM 15 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX20',
+          desc: 'CAIXA COM 20 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX25',
+          desc: 'CAIXA COM 25 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX50',
+          desc: 'CAIXA COM 50 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'CX100',
+          desc: 'CAIXA COM 100 UNIDADES',
+          key_loja: 'geral'
+        },
+        {
+          code: 'DUZIA',
+          desc: 'DUZIA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'EMBAL',
+          desc: 'EMBALAGEM',
+          key_loja: 'geral'
+        },
+        {
+          code: 'FARDO',
+          desc: 'FARDO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'FOLHA',
+          desc: 'FOLHA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'FRASCO',
+          desc: 'FRASCO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'GALAO',
+          desc: 'GALÃO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'GF',
+          desc: 'GARRAFA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'GRAMAS',
+          desc: 'GRAMAS',
+          key_loja: 'geral'
+        },
+        {
+          code: 'JOGO',
+          desc: 'JOGO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'KG',
+          desc: 'QUILOGRAMA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'KIT',
+          desc: 'KIT',
+          key_loja: 'geral'
+        },
+        {
+          code: 'LATA',
+          desc: 'LATA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'LITRO',
+          desc: 'LITRO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'M',
+          desc: 'METRO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'M2',
+          desc: 'METRO QUADRADO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'M3',
+          desc: 'METRO CÚBICO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'MILHEI',
+          desc: 'MILHEIRO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'ML',
+          desc: 'MILILITRO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'PACOTE',
+          desc: 'PACOTE',
+          key_loja: 'geral'
+        },
+        {
+          code: 'PC',
+          desc: 'PEÇA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'K',
+          desc: 'QUILATE',
+          key_loja: 'geral'
+        },
+        {
+          code: 'RESMA',
+          desc: 'RESMA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'ROLO',
+          desc: 'ROLO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'SACO',
+          desc: 'SACO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'SACOLA',
+          desc: 'SACOLA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'TON',
+          desc: 'TONELADA',
+          key_loja: 'geral'
+        },
+        {
+          code: 'TUBO',
+          desc: 'TUBO',
+          key_loja: 'geral'
+        },
+        {
+          code: 'UNID',
+          desc: 'UNIDADE',
+          key_loja: 'geral'
+        },
+        {
+          code: 'VASIL',
+          desc: 'VASILHAME',
+          key_loja: 'geral'
+        },
+        {
+          code: 'VIDRO',
+          desc: 'VIDRO',
+          key_loja: 'geral'
+        },
+  
+      ]
+  
+      medidas.forEach(data => {
+        console.log(data);
+        let key = this.gerarKey();
+        this.db.collection('medidas').doc(key).set(data)
+      })
+  
+    } */
 
+  getAllCollection(collection, order) {
+    return this.db.collection(collection, ref => ref.orderBy(order, 'asc')).valueChanges();
+  }
+
+  create_medidas(code, desc, key_loja) {
+    this.db.collection('medidas', ref => ref.where('desc', '==', desc)
+      .where('key_loja', '==', key_loja)).get()
+      .subscribe(data => {
+        if (data.docs.length >= 1) {
+          this.alertCtrl.create({
+            header: 'Erro!',
+            message: 'Medida já cadastrada',
+            buttons: [{
+              text: 'Entendi'
+            }]
+          }).then((alt) => {
+            alt.present();
+          })
+        } else {
+          let key = this.gerarKey();
+          this.db.collection('medidas').doc(key).set({
+            code: code,
+            desc: desc,
+            key_loja: key_loja,
+            key: key
+          }).then(() => {
+            this.toastCtrl.create({
+              message: 'Medida cadastrada com sucesso!',
+              duration: 3000
+            }).then((toast) => {
+              this.loadCtrl.dismiss();
+              toast.present();
+            })
+          })
+        }
+      })
+    /* return this.db.collection('medidas').doc(this.gerarKey()).set() */
+  }
+
+  update_medidas(code, desc, key) {
+    this.db.collection('medidas', ref => ref.where('desc', '==', desc)).get()
+      .subscribe(data => {
+        if (data.docs.length >= 1) {
+          this.alertCtrl.create({
+            header: 'Erro!',
+            message: 'Medida já cadastrada',
+            buttons: [{
+              text: 'Entendi'
+            }]
+          }).then((alt) => {
+            this.loadCtrl.dismiss();
+            alt.present();
+          })
+        } else {
+          this.db.collection('medidas').doc(key).update({
+            code: code,
+            desc: desc,
+          }).then(() => {
+            this.toastCtrl.create({
+              message: 'Medida atualizada com sucesso!',
+              duration: 3000
+            }).then((toast) => {
+              this.loadCtrl.dismiss();
+              toast.present();
+            })
+          })
+        }
+      })
+  }
+
+  getMedidasPadrao() {
+    return this.db.collection('medidas', ref => ref.where('key_loja', '==', 'geral').orderBy('code', 'asc'));
+  }
+
+  getMedidasByLoja(key_loja) {
+    return this.db.collection('medidas', ref => ref.where('key_loja', '==', key_loja)
+      .orderBy('code', 'asc'))
+  }
+
+  delete_medida(key) {
+    this.db.collection('medidas').doc(key).delete().then(() => {
+      this.toastCtrl.create({
+        message: 'Medida excluída com sucesso!',
+        duration: 3000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+  }
+
+  create_categorias(nome, desc, key_loja) {
+    let key = this.gerarKey();
+    this.db.collection('categorias').doc(key).set({
+      key: key,
+      nome: nome,
+      desc: desc,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Categoria cadastrada com sucesso!',
+        duration: 3000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+  }
+
+  getCategoriasLoja(key_loja) {
+    return this.db.collection('categorias', ref => ref.where('key_loja', '==', key_loja).orderBy('nome', 'asc')).valueChanges();
+  }
+
+  update_categorias(nome, desc, key) {
+    this.db.collection('categorias').doc(key).update({
+      nome: nome,
+      desc: desc
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Categoria editada com sucesso!',
+        duration: 3000
+      }).then((t) => {
+        t.present();
+      })
+    })
+  }
+
+  delete_item(collection, key) {
+    this.db.collection(collection).doc(key).delete().then(() => {
+      this.toastCtrl.create({
+        message: 'Registro excluído com sucesso!',
+        duration: 3000
+      }).then(t => t.present());
+    })
+  }
+
+  getDepartamentosLoja(key_loja) {
+    return this.db.collection('departamentos', ref => ref.where('key_loja', '==', key_loja).orderBy('nome', 'asc')).valueChanges();
+  }
+
+  create_departamentos(nome, desc, key_loja) {
+    let key = this.gerarKey();
+    this.db.collection('departamentos').doc(key).set({
+      key: key,
+      nome: nome,
+      desc: desc,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Departamento cadastrado com sucesso!',
+        duration: 3000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+  }
+
+  update_departamentos(nome, desc, key) {
+    this.db.collection('departamentos').doc(key).update({
+      nome: nome,
+      desc: desc
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Departamento editado com sucesso!',
+        duration: 3000
+      }).then((t) => {
+        t.present();
+      })
+    })
+  }
+
+  getCargosLoja(key_loja) {
+    return this.db.collection('cargos', ref => ref.where('key_loja', '==', key_loja).orderBy('nome', 'asc')).valueChanges();
+  }
+
+  create_cargos(nome, desc, key_loja) {
+    let key = this.gerarKey();
+    this.db.collection('cargos').doc(key).set({
+      key: key,
+      nome: nome,
+      desc: desc,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Cargo cadastrado com sucesso!',
+        duration: 3000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+  }
+
+  update_cargos(nome, desc, key) {
+    this.db.collection('cargos').doc(key).update({
+      nome: nome,
+      desc: desc
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Cargo editado com sucesso!',
+        duration: 3000
+      }).then((t) => {
+        t.present();
+      })
+    })
+  }
+
+  create_grade(nome, key_loja) {
+    let key = this.gerarKey();
+    this.db.collection('grades').doc(key).set({
+      key: key,
+      nome: nome,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Grade cadastrada com sucesso!',
+        duration: 3000
+      }).then((toast) => {
+        toast.present();
+      })
+    })
+  }
+
+
+  getGradesLoja(key_loja) {
+    return this.db.collection('grades', ref => ref.where('key_loja', '==', key_loja).orderBy('nome', 'asc')).valueChanges();
+  }
+
+  getGrade(id) {
+    return this.db.collection('grades', ref => ref.where('key', '==', id));
+  }
+  create_variacao(nome, key, key_loja) {
+    let chave_variacao = this.gerarKey();
+    this.db.collection('variacoes').doc(chave_variacao).set({
+      key: chave_variacao,
+      nome: nome,
+      key_grade: key,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Variação adicionada!',
+        duration: 2500
+      }).then((t) => t.present());
+    })
+  }
+
+  getVariacoes(grade) {
+    return this.db.collection('variacoes', ref => ref.where('key_grade', '==', grade).orderBy('nome', 'asc'));
+  }
+
+  gerar_formaspg() {
+    let formas = [
+      {
+        desc: 'CREDIÁRIO',
+        key_loja: 'geral',
+      },
+      {
+        desc: 'DINHEIRO',
+        key_loja: 'geral'
+      },
+      {
+        desc: 'CARTÃO DE CRÉDITO',
+        key_loja: 'geral'
+      },
+      {
+        desc: 'CARTÃO DE DÉBITO',
+        key_loja: 'geral'
+      }
     ]
 
-    medidas.forEach(data => {
-      console.log(data); 
+    formas.forEach(data => {
       let key = this.gerarKey();
-      this.db.collection('medidas').doc(key).set(data)     
+      this.db.collection('formas-pagamento').doc(key).set(data);
     })
-    
-    //this.db.collection('medidas').doc(key).set(medidas)
+
+  }
+
+  getFormasByLoja(key_loja) {
+    return this.db.collection('formas-pagamento', ref => ref.where('key_loja', '==', key_loja).orderBy('desc', 'asc'))
+  }
+
+  getFormaspadrao() {
+    return this.db.collection('formas-pagamento', ref => ref.where('key_loja', '==', 'geral').orderBy('desc', 'asc'));
+  }
+
+  create_formas(desc, key_loja) {
+    let key = this.gerarKey();
+    this.db.collection('formas-pagamento').doc(key).set({
+      key: key,
+      desc: desc,
+      key_loja: key_loja
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Forma de pagamento cadastrada',
+        duration: 3000
+      }).then((t) => {
+        t.present();
+      })
+    })
+  }
+
+  update_formas(desc, key){
+    this.db.collection('formas-pagamento').doc(key).update({
+      desc: desc
+    }).then(() => {
+      this.toastCtrl.create({
+        message: 'Forma atualizada!',
+        duration: 3000
+      }).then((t) => t.present())
+    })
   }
 }

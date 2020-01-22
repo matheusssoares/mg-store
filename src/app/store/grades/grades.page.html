@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Grades</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="../../../assets/img/grades.png" alt="grades">
+
+  <ion-searchbar placeholder="Pesquisar" (ionInput)="filter($event)"></ion-searchbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of itens">
+            <ion-label>
+              <h2>{{ item.nome }}</h2>
+            </ion-label>
+            <ion-label class="ion-text-right">
+              <ion-button (click)="variacoes(item)" color="warning" slot="end">
+                <ion-icon name="search"></ion-icon>
+              </ion-button>
+              <ion-button (click)="excluir(item)" color="danger" slot="end">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="add()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

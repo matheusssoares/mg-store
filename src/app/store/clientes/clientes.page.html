@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="../../../assets/img/clientes.png" alt="clientes">
+  <h3 class="ion-text-center">Você possui 49 clientes cadastrados</h3>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-searchbar placeholder="Pesquisar" (ionInput)="filter($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="add()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

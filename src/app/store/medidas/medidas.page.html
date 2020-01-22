@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Medidas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <img src="../../../assets/img/medidas.png" alt="medidas">
+
+  <ion-searchbar placeholder="Pesquisar" (ionInput)="filter($event)"></ion-searchbar>
+ 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of itens">
+
+            <ion-item>
+              <ion-label>
+                <h2>{{ item.desc }}</h2>
+                <h3>{{ item.code }}</h3>
+              </ion-label>
+              <ion-button *ngIf="item.key_loja == key_loja" color="success" fill="clear" slot="end"><ion-icon name="medical"></ion-icon></ion-button>
+            </ion-item>
+
+            <ion-item-options *ngIf="item.key_loja == key_loja" side="end">
+              <ion-item-option (click)="unread(item)">Editar</ion-item-option>
+              <ion-item-option color="danger" (click)="share(item)">Excluir</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="add()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

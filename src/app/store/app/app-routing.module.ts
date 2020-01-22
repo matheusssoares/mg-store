@@ -14,7 +14,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-            import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+              import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
           }
         ]
       },
@@ -24,7 +24,52 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-            import('../cadastros/cadastros.module').then(m => m.CadastrosPageModule)
+              import('../cadastros/cadastros.module').then(m => m.CadastrosPageModule)
+          },
+          {
+            path: 'medidas',
+            loadChildren: () =>
+              import('../medidas/medidas.module').then(m => m.MedidasPageModule)
+          },
+          {
+            path: 'categorias',
+            loadChildren: () =>
+              import('../categorias/categorias.module').then(m => m.CategoriasPageModule)
+          },
+          {
+            path: 'departamentos',
+            loadChildren: () =>
+              import('../departamentos/departamentos.module').then(m => m.DepartamentosPageModule)
+          },
+          {
+            path: 'cargos',
+            loadChildren: () =>
+              import('../cargos/cargos.module').then(m => m.CargosPageModule)
+          },
+          {
+            path: 'grades',
+            loadChildren: () =>
+            import('../grades/grades.module').then(m => m.GradesPageModule)
+          },
+          {
+            path: 'grades/variacoes/:key',
+            loadChildren: () => 
+            import('../variacoes/variacoes.module').then(m => m.VariacoesPageModule)
+          },
+          {
+            path: 'formas-pagamento',
+            loadChildren: () =>
+            import('../formas-pagamento/formas-pagamento.module').then(m => m.FormasPagamentoPageModule)
+          },
+          {
+            path: 'clientes',
+            loadChildren: () =>
+            import('../clientes/clientes.module').then(m => m.ClientesPageModule)
+          },
+          {
+            path: 'clientes/adicionar',
+            loadChildren: () =>
+            import('../clientes/adicionar/adicionar.module').then(m => m.AdicionarPageModule)
           }
         ]
       },
@@ -33,8 +78,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => 
-            import('../financeiro/financeiro.module').then(m => m.FinanceiroPageModule)
+            loadChildren: () =>
+              import('../financeiro/financeiro.module').then(m => m.FinanceiroPageModule)
           }
         ]
       },
@@ -44,7 +89,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-            import('../relatorios/relatorios.module').then(m => m.RelatoriosPageModule)
+              import('../relatorios/relatorios.module').then(m => m.RelatoriosPageModule)
           }
         ]
       },
@@ -66,4 +111,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppPageRoutingModule {}
+export class AppPageRoutingModule { }

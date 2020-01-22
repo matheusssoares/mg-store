@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from 'src/environments/environment';
 import { Camera } from '@ionic-native/camera/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Camera
+    Camera,
+    SMS
     //{ provide: Camera, useClass: CameraMock }
   ],
   bootstrap: [AppComponent]

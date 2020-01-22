@@ -1,0 +1,238 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Adicionar clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-avatar class="avatar">
+        <img src="https://image.flaticon.com/icons/svg/149/149071.svg">
+        <ion-fab-button (click)="foto()" color="light" style="float: right; margin-top: -50px">
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-avatar>
+    </ion-row>
+    <ion-row class="margin-top-15">
+      <form class="width-100" [formGroup]="signupForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Nome completo</ion-label>
+            <ion-input type="text" formControlName="nome_cliente"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input type="email" formControlName="email_cliente"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contato - WhatsApp</ion-label>
+            <ion-input type="tel" formControlName="whatsapp_cliente" [brmasker]="{phone: true}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Sexo</ion-label>
+            <ion-select formControlName="sexo_cliente" cancelText="cancelar" placeholder="Selecionar">
+              <ion-select-option value="f">Feminino</ion-select-option>
+              <ion-select-option value="m">Masculino</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </form>
+    </ion-row>
+    <ion-row>
+      <div class="option">
+        <div *ngIf="!display_end" (click)="mostrar_end()" class="head">
+          ENDEREÇO
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropdown"></ion-icon>
+        </div>
+
+        <div *ngIf="display_end" (click)="esconder_end()" class="head">
+          ENDEREÇO
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropup"></ion-icon>
+        </div>
+
+        <div *ngIf="display_end">
+          <ion-row>
+            <ion-col *ngIf="mostrar_cep">
+              <ion-item>
+                <ion-label position="floating">CEP</ion-label>
+                <ion-input (ionChange)="getCep($event.target.value)" [specialCharacters]="[ '-' ]" mask="00000-000"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col *ngIf="!mostrar_cep">
+              <ion-item>
+                <ion-label position="floating">CEP</ion-label>
+                <ion-input disabled [(ngModel)]="end.cep"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                <ion-label position="floating">Estado</ion-label>
+                <ion-input [(ngModel)]="end.estado"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Cidade</ion-label>
+                <ion-input type="text" [(ngModel)]="end.cidade"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Bairro</ion-label>
+                <ion-input type="text" [(ngModel)]="end.bairro"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Endereço</ion-label>
+                <ion-input type="text" [(ngModel)]="end.rua"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Complemento</ion-label>
+                <ion-input type="text" [(ngModel)]="end.comp"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                <ion-label position="floating">Num</ion-label>
+                <ion-input type="text" [(ngModel)]="end.num"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <div class="option">
+        <div *ngIf="!display_doc" (click)="mostrar_doc()" class="head">
+          DOCUMENTOS
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropdown"></ion-icon>
+        </div>
+
+        <div *ngIf="display_doc" (click)="esconder_doc()" class="head">
+          DOCUMENTOS
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropup"></ion-icon>
+        </div>
+
+        <div *ngIf="display_doc">
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">RG</ion-label>
+                <ion-input [(ngModel)]="doc.rg" type="number" [brmasker]="{len:7}"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">CPF</ion-label>
+                <ion-input [(ngModel)]="doc.cpf" [brmasker]="{person:true}"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Data de nascimento</ion-label>
+                <ion-datetime cancel-text="cancelar" done-text="confirmar" displayFormat="DD/MM/YYYY"></ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <div class="option">
+        <div *ngIf="!display_config" (click)="mostrar_config()" class="head">
+          CONFIGURAR CONTAS
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropdown"></ion-icon>
+        </div>
+
+        <div *ngIf="display_config" (click)="esconder_config()" class="head">
+          CONFIGURAR CONTAS
+          <ion-icon style="float: right;" class="ion-text-right" name="arrow-dropup"></ion-icon>
+        </div>
+
+        <div *ngIf="display_config">
+          <ion-row>
+            <ion-col>
+              <ion-radio-group>
+                <ion-list-header>
+                  <ion-label>Limite de Créditos</ion-label>
+                </ion-list-header>
+
+                <ion-item>
+                  <ion-label>Limite padrão {{credito | currency:'BRL':true}}</ion-label>
+                  <ion-radio mode="ios" slot="start" value="1" checked></ion-radio>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Bloquear Crédito</ion-label>
+                  <ion-radio mode="ios" slot="start" value="2"></ion-radio>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label *ngIf="!novo_valor_credito">Adicionar um novo valor</ion-label>
+                  <ion-label *ngIf="novo_valor_credito">Novo valor {{novo_valor_credito | currency:'BRL':true}}</ion-label>
+                  <ion-radio (ionSelect)="valor_credito()" mode="ios" slot="start" value="3"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label>Cliente possui débito antigo?</ion-label>
+              <ion-toggle mode="ios" slot="start" [(ngModel)]="config.debito_antigo"></ion-toggle>
+            </ion-item>
+
+            <ion-item class="width-100" *ngIf="config.debito_antigo">
+              <ion-label position="floating">Valor do débito antigo</ion-label>
+              <ion-input [(ngModel)]="valor_debito_antigo"
+              [brmasker]="{money: true}"></ion-input>
+            </ion-item>
+            <ion-item class="width-100" *ngIf="config.debito_antigo">
+              <ion-textarea [(ngModel)]="informacao_debito_antigo" placeholder="Dê mais informações sobre o débito antigo"></ion-textarea>
+            </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <ion-item>
+              <ion-label>Salvar contato na agenda</ion-label>
+              <ion-toggle mode="ios" slot="start" [(ngModel)]="config.salvar_contato"></ion-toggle>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label>Enviar msg de boas vindas</ion-label>
+              <ion-toggle (ionFocus)="enviar_msg()" mode="ios" slot="start" [(ngModel)]="config.enviar_msg"></ion-toggle>
+            </ion-item>
+          </ion-row>
+        </div>
+      </div>
+    </ion-row>
+
+    <ion-row style="margin-top: 20px;">
+        <ion-button class="btn-45 width-100 bold" color="primary" expand="block" (click)="submit()" [disabled]="signupForm.invalid">Cadastrar
+        </ion-button>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastros',
@@ -8,14 +9,15 @@ import { AuthService } from 'src/app/providers/auth.service';
 })
 export class CadastrosPage implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private route: Router) { }
 
   ngOnInit() {
-    
+
   }
 
-  medidas() {
-    this.auth.gerar_medidas();
+  navegar(page) {
+    this.route.navigateByUrl(`store/app/cadastros/${page}`);
+
   }
 
 }
