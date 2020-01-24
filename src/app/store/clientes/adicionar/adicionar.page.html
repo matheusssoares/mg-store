@@ -11,30 +11,30 @@
   <ion-grid>
     <ion-row>
       <ion-avatar class="avatar">
-        <img src="https://image.flaticon.com/icons/svg/149/149071.svg">
+        <img [src]="foto_cli || 'https://image.flaticon.com/icons/svg/149/149071.svg'">
         <ion-fab-button (click)="foto()" color="light" style="float: right; margin-top: -50px">
           <ion-icon name="camera"></ion-icon>
         </ion-fab-button>
       </ion-avatar>
     </ion-row>
     <ion-row class="margin-top-15">
-      <form class="width-100" [formGroup]="signupForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
+      <form class="width-100" [formGroup]="signupForm">
         <ion-list>
           <ion-item>
             <ion-label position="floating">Nome completo</ion-label>
-            <ion-input type="text" formControlName="nome_cliente"></ion-input>
+            <ion-input type="text" formControlName="nome"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">E-mail</ion-label>
-            <ion-input type="email" formControlName="email_cliente"></ion-input>
+            <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Contato - WhatsApp</ion-label>
-            <ion-input type="tel" formControlName="whatsapp_cliente" [brmasker]="{phone: true}"></ion-input>
+            <ion-input type="tel" formControlName="whatsapp" [brmasker]="{phone: true}"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Sexo</ion-label>
-            <ion-select formControlName="sexo_cliente" cancelText="cancelar" placeholder="Selecionar">
+            <ion-select formControlName="sexo" cancelText="cancelar" placeholder="Selecionar">
               <ion-select-option value="f">Feminino</ion-select-option>
               <ion-select-option value="m">Masculino</ion-select-option>
             </ion-select>
@@ -59,7 +59,8 @@
             <ion-col *ngIf="mostrar_cep">
               <ion-item>
                 <ion-label position="floating">CEP</ion-label>
-                <ion-input (ionChange)="getCep($event.target.value)" [specialCharacters]="[ '-' ]" mask="00000-000"></ion-input>
+                <ion-input (ionChange)="getCep($event.target.value)" [specialCharacters]="[ '-' ]" mask="00000-000">
+                </ion-input>
               </ion-item>
             </ion-col>
             <ion-col *ngIf="!mostrar_cep">
@@ -150,7 +151,7 @@
             <ion-col>
               <ion-item>
                 <ion-label position="floating">Data de nascimento</ion-label>
-                <ion-datetime cancel-text="cancelar" done-text="confirmar" displayFormat="DD/MM/YYYY"></ion-datetime>
+                <ion-datetime [(ngModel)]="doc.data_nasc" cancel-text="cancelar" done-text="confirmar" displayFormat="DD/MM/YYYY"></ion-datetime>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -173,25 +174,26 @@
         <div *ngIf="display_config">
           <ion-row>
             <ion-col>
-              <ion-radio-group>
+              <ion-radio-group allow-empty-selection= "true" name="radio-group" (ionChange)="radioGroupChange($event)">
                 <ion-list-header>
                   <ion-label>Limite de Créditos</ion-label>
                 </ion-list-header>
 
                 <ion-item>
                   <ion-label>Limite padrão {{credito | currency:'BRL':true}}</ion-label>
-                  <ion-radio mode="ios" slot="start" value="1" checked></ion-radio>
+                  <ion-radio mode="md" id="valor_credito" value="1" slot="start" checked></ion-radio>
                 </ion-item>
 
                 <ion-item>
                   <ion-label>Bloquear Crédito</ion-label>
-                  <ion-radio mode="ios" slot="start" value="2"></ion-radio>
+                  <ion-radio mode="md" id="valor_credito" value="2" slot="start"></ion-radio>
                 </ion-item>
 
                 <ion-item>
                   <ion-label *ngIf="!novo_valor_credito">Adicionar um novo valor</ion-label>
-                  <ion-label *ngIf="novo_valor_credito">Novo valor {{novo_valor_credito | currency:'BRL':true}}</ion-label>
-                  <ion-radio (ionSelect)="valor_credito()" mode="ios" slot="start" value="3"></ion-radio>
+                  <ion-label *ngIf="novo_valor_credito">Novo valor {{novo_valor_credito | currency:'BRL':true}}
+                  </ion-label>
+                  <ion-radio mode="md" id="valor_credito" (ionSelect)="valor_credito()" slot="start" value="3"></ion-radio>
                 </ion-item>
               </ion-radio-group>
             </ion-col>
@@ -199,16 +201,16 @@
           <ion-row>
             <ion-item>
               <ion-label>Cliente possui débito antigo?</ion-label>
-              <ion-toggle mode="ios" slot="start" [(ngModel)]="config.debito_antigo"></ion-toggle>
+              <ion-toggle (ionChange)="tem_debito($event)" mode="ios" slot="start" [(ngModel)]="config.debito_antigo"></ion-toggle>
             </ion-item>
 
             <ion-item class="width-100" *ngIf="config.debito_antigo">
               <ion-label position="floating">Valor do débito antigo</ion-label>
-              <ion-input [(ngModel)]="valor_debito_antigo"
-              [brmasker]="{money: true}"></ion-input>
+              <ion-input [(ngModel)]="valor_debito_antigo" [brmasker]="{money: true}"></ion-input>
             </ion-item>
             <ion-item class="width-100" *ngIf="config.debito_antigo">
-              <ion-textarea [(ngModel)]="informacao_debito_antigo" placeholder="Dê mais informações sobre o débito antigo"></ion-textarea>
+              <ion-textarea [(ngModel)]="informacao_debito_antigo"
+                placeholder="Dê mais informações sobre o débito antigo"></ion-textarea>
             </ion-item>
           </ion-row>
 
@@ -221,7 +223,8 @@
           <ion-row>
             <ion-item>
               <ion-label>Enviar msg de boas vindas</ion-label>
-              <ion-toggle (ionFocus)="enviar_msg()" mode="ios" slot="start" [(ngModel)]="config.enviar_msg"></ion-toggle>
+              <ion-toggle mode="ios" slot="start" [(ngModel)]="config.enviar_msg">
+              </ion-toggle>
             </ion-item>
           </ion-row>
         </div>
@@ -229,10 +232,10 @@
     </ion-row>
 
     <ion-row style="margin-top: 20px;">
-        <ion-button class="btn-45 width-100 bold" color="primary" expand="block" (click)="submit()" [disabled]="signupForm.invalid">Cadastrar
-        </ion-button>
+      <ion-button (click)="onSubmit(signupForm)" class="btn-45 width-100 bold" color="primary" expand="block"
+        [disabled]="signupForm.invalid">Cadastrar
+      </ion-button>
     </ion-row>
-
   </ion-grid>
 
 </ion-content>

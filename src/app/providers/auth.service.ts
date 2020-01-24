@@ -846,4 +846,8 @@ export class AuthService {
       }).then((t) => t.present())
     })
   }
+
+  upload_arquivo(ref, pasta, nome_arquivo, arquivo){
+    return this.fs.storage.ref(ref).child(`${pasta}/${nome_arquivo}`).putString(arquivo, 'data_url');
+  }
 }

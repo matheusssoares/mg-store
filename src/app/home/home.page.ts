@@ -33,9 +33,9 @@ export class HomePage {
     this.menuCtrl.enable(false);
   }
 
-  login(): void {
+  /* login(): void {
     this.router.navigateByUrl('adm/dashboard');
-  }
+  } */
   cadastrar(): void {
     this.router.navigateByUrl('cadastre-se');
   }

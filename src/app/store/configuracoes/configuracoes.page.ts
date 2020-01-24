@@ -172,7 +172,7 @@ export class ConfiguracoesPage implements OnInit {
     }
   }
 
-  submit() {
+  onSubmit() {
     this.loadCtrl.create({
       message: 'Configurando...'
     }).then((load) => {

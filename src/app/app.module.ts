@@ -14,9 +14,21 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { firebaseConfig } from 'src/environments/environment';
 import { Camera } from '@ionic-native/camera/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Contact, Contacts } from '@ionic-native/contacts/ngx';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCbqEzK7jk04JCfd_TCDt6gHHrvGkE-IN4",
+  authDomain: "boutique-erp.firebaseapp.com",
+  databaseURL: "https://boutique-erp.firebaseio.com",
+  projectId: "boutique-erp",
+  storageBucket: "boutique-erp.appspot.com",
+  messagingSenderId: "511953502267",
+  appId: "1:511953502267:web:325b6006d7f88a1ec55c1e",
+  measurementId: "G-NMYY9Y97EE"
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +48,10 @@ import { SMS } from '@ionic-native/sms/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
-    SMS
+    SMS,
+    SocialSharing,
+    Contact,
+    Contacts
     //{ provide: Camera, useClass: CameraMock }
   ],
   bootstrap: [AppComponent]
